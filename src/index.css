@@ -17,8 +17,21 @@ input {
   background: #ffffff;
 }
 
+#root {
+  padding: 0 10px;
+  margin: 0 auto;
+  max-width: 420px;
+}
+
+.play {
+  margin: 20px 0;
+  padding: 1rem;
+  font-size: 20px;
+  font-weight: bold;
+}
+
 .range {
-  margin: 10px 0 30px;
+  margin: 0 0 30px;
 }
 
 .range-container {
@@ -38,7 +51,7 @@ input {
 }
 
 .range-button:first-child {
-  margin-left: 10px;
+  margin-left: 0;
 }
 
 .range-input {

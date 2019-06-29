@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker'
 render(
   <Router>
     <Home path="/" />
-    <Session path="/:sessionId" />
+    <Session path="/session/:sessionId" />
   </Router>,
   document.getElementById('root')
 )
