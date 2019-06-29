@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 
-function Range({ options, currentValue, onSelect, enableCustomPick }) {
+function Range({ options, currentValue, onSelect, enableCustomPick = false }) {
+  const [inputActive, setInputActive] = useState(false)
+  const inputRef = useRef(null)
+  useEffect(() => {
+    if (inputRef.current && Number(inputRef.current.value) === currentValue) {
+      setInputActive(true)
+    } else {
+      setInputActive(false)
+    }
+  }, [currentValue])
+
   return (
     <div className="range">
       {options.map(option => (
@@ -14,7 +24,14 @@ function Range({ options, currentValue, onSelect, enableCustomPick }) {
           {option}
         </button>
       ))}
-      {enableCustomPick && <input className={`range-button`} type="number" onChange={onSelect} />}
+      {enableCustomPick && (
+        <input
+          className={`range-input ${inputActive ? 'range-input--current' : ''}`}
+          ref={inputRef}
+          type="number"
+          onChange={onSelect}
+        />
+      )}
     </div>
   )
 }

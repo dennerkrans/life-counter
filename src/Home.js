@@ -8,22 +8,18 @@ function Home() {
   return (
     <div className="home">
       <Range
-        options={createArrayOfIntegers(1, 6)}
+        options={[1, 2, 3, 4, 5, 6]}
         currentValue={playerCount}
         onSelect={e => setPlayerCount(Number(e.target.value))}
       />
       <Range
-        options={createArrayOfIntegers(20, 40, 10)}
+        options={[20, 30, 40]}
         currentValue={startingLife}
         onSelect={e => setStartingLife(Number(e.target.value))}
         enableCustomPick={true}
       />
     </div>
   )
-}
-
-const createArrayOfIntegers = (start, end, step = 1) => {
-  return Array.from({ length: end / step }, (_, i) => i * step + start)
 }
 
 export default Home
