@@ -1,0 +1,14 @@
+{
+    "name": "Life Counter",
+    "short_name": "Life Counter",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#ffc40d",
+    "background_color": "#ffc40d",
+    "display": "standalone"
+}
