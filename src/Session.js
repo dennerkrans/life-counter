@@ -1,25 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Player from './components/Player'
 
-/** Idea for session state structure example
- * This should be saved in localStorage using the `sessionId` to identify
- * the session. It should also update when the session state changes,
- * i.e. Player 1 loses 2 life, new life total 18, or Player 1 changes name
- * to `Daniel` update session state
- * {
- *   initialState: {
- *     playerCount: 4,
- *     startingLife: 20
- *   }
- *   players: [
- *     { name: 'Player 1', life: 20 },
- *     { name: 'Player 2', life: 13 },
- *     { name: 'Player 3', life: 27 },
- *     { name: 'Player 4', life: 11 },
- *   ]
- * }
- */
-
 const getParamAsNumber = name => {
   const params = new URLSearchParams(window.location.search)
   return Number(params.get(name))
