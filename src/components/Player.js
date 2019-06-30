@@ -3,8 +3,10 @@ import React from 'react'
 function Player({ name, life }) {
   return (
     <div className="player">
-      <p className="player-name">{name}</p>
-      <p className="player-life">{life}</p>
+      <div className="player-content">
+        <p className="player-name">{name}</p>
+        <p className="player-life">{life}</p>
+      </div>
     </div>
   )
 }

@@ -7,11 +7,8 @@ const getParamAsNumber = name => {
 }
 
 function Session({ sessionId }) {
-  const [state, setState] = useState()
-
-  const setInitialState = session => {
-    setState(session)
-  }
+  const [initialState, setInitialState] = useState()
+  const [players, setPlayers] = useState()
 
   useEffect(() => {
     let session = JSON.parse(localStorage.getItem(sessionId))
@@ -31,18 +28,29 @@ function Session({ sessionId }) {
       }
       localStorage.setItem(sessionId, JSON.stringify(session))
     }
-    setInitialState(session)
+    initState(session, session.players)
   }, [sessionId])
 
-  if (!state) {
+  const initState = (initialState, players) => {
+    setInitialState(initialState)
+    setPlayers(players)
+  }
+
+  if (!players) {
     return <p>Loading</p>
   }
 
   return (
     <div className="session">
-      {state.players.map(player => (
-        <Player key={player.name} {...player} />
-      ))}
+      <div
+        className={`players${players.length === 2 ? ' players-two' : ''}${
+          players.length > 2 ? ' players-vertical' : ''
+        }`}
+      >
+        {players.map(player => (
+          <Player key={player.name} {...player} />
+        ))}
+      </div>
     </div>
   )
 }

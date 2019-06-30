@@ -23,6 +23,7 @@ input {
   max-width: 420px;
 }
 
+/* Home */
 .play {
   margin: 20px 0;
   padding: 1rem;
@@ -30,6 +31,59 @@ input {
   font-weight: bold;
 }
 
+/* Session */
+.session {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* Player */
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+}
+
+.players-two {
+  flex-direction: column;
+}
+
+.player {
+  flex-basis: 100%;
+  background: red;
+  position: relative;
+}
+
+.players-two .player,
+.players-vertical .player {
+  flex-basis: 50%;
+}
+
+.players-two .player:nth-child(odd) {
+  transform: rotate(180deg);
+}
+
+/* Below this ain't working */
+.players-vertical .player .player-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.players-vertical .player:nth-child(odd) .player-content {
+  transform: rotate(90deg);
+}
+
+.players-vertical .player:nth-child(even) .player-content {
+  transform: rotate(-90deg);
+}
+
+/* Range */
 .range {
   margin: 0 0 30px;
 }
