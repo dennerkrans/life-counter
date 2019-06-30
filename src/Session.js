@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Player from './components/Player'
 
 /** Idea for session state structure example
  * This should be saved in localStorage using the `sessionId` to identify
@@ -19,29 +20,48 @@ import React, { useState, useEffect } from 'react'
  * }
  */
 
+const getParamAsNumber = name => {
+  const params = new URLSearchParams(window.location.search)
+  return Number(params.get(name))
+}
+
 function Session({ sessionId }) {
-  const [playerCount, setPlayerCount] = useState()
-  const [startingLife, setStartingLife] = useState()
+  const [state, setState] = useState()
 
   const setInitialState = session => {
-    const params = new URLSearchParams(session)
-    setPlayerCount(params.get('playerCount'))
-    setStartingLife(params.get('startingLife'))
+    setState(session)
   }
 
   useEffect(() => {
-    let session = localStorage.getItem(sessionId)
+    let session = JSON.parse(localStorage.getItem(sessionId))
     if (!session) {
-      session = window.location.search
-      localStorage.setItem(sessionId, session)
+      const playerCount = getParamAsNumber('playerCount')
+      const startingLife = getParamAsNumber('startingLife')
+      const players = Array.from(Array(playerCount), (_, i) => ({
+        name: `Player ${i + 1}`,
+        life: startingLife,
+      }))
+      session = {
+        initialState: {
+          playerCount,
+          startingLife,
+        },
+        players,
+      }
+      localStorage.setItem(sessionId, JSON.stringify(session))
     }
     setInitialState(session)
   }, [sessionId])
 
+  if (!state) {
+    return <p>Loading</p>
+  }
+
   return (
     <div className="session">
-      <p>Players: {playerCount}</p>
-      <p>Life: {startingLife}</p>
+      {state.players.map(player => (
+        <Player key={player.name} {...player} />
+      ))}
     </div>
   )
 }
