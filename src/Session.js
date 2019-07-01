@@ -56,7 +56,19 @@ function Session({ sessionId }) {
   function handleUpdateLife(id, life) {
     const playerIndex = players.findIndex(p => p.id === id)
     const updatedPlayer = update(players[playerIndex], { life: { $set: life } })
-    const updatedPlayers = update(players, { $splice: [[playerIndex, 1, updatedPlayer]] })
+    updatePlayers(updatedPlayer, playerIndex)
+  }
+
+  function handleUpdateName(id, name) {
+    const playerIndex = players.findIndex(p => p.id === id)
+    const updatedPlayer = update(players[playerIndex], { name: { $set: name } })
+    updatePlayers(updatedPlayer, playerIndex)
+  }
+
+  function updatePlayers(updatedPlayer, index) {
+    const updatedPlayers = update(players, { $splice: [[index, 1, updatedPlayer]] })
+    console.log(players)
+    console.log(updatedPlayers)
     setPlayers(updatedPlayers)
   }
 
@@ -77,7 +89,7 @@ function Session({ sessionId }) {
         }`}
       >
         {players.map(player => (
-          <Player key={player.name} updateLife={handleUpdateLife} {...player} />
+          <Player key={player.name} updateLife={handleUpdateLife} updateName={handleUpdateName} {...player} />
         ))}
       </div>
     </div>
