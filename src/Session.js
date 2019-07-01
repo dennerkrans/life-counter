@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import update from 'immutability-helper'
 import Player from './components/Player'
 
 const getParamAsNumber = name => {
@@ -16,6 +17,7 @@ function Session({ sessionId }) {
       const playerCount = getParamAsNumber('playerCount')
       const startingLife = getParamAsNumber('startingLife')
       const players = Array.from(Array(playerCount), (_, i) => ({
+        id: i,
         name: `Player ${i + 1}`,
         life: startingLife,
       }))
@@ -31,9 +33,21 @@ function Session({ sessionId }) {
     initState(session, session.players)
   }, [sessionId])
 
-  const initState = (initialState, players) => {
+  function initState(initialState, players) {
     setInitialState(initialState)
     setPlayers(players)
+  }
+
+  function reset() {
+    initState(initialState, initialState.players)
+  }
+
+  function handleUpdateLife(id, life) {
+    const playerIndex = players.findIndex(p => p.id === id)
+    const updatedPlayer = update(players[playerIndex], { life: { $set: life } })
+    const updatedPlayers = update(players, { $splice: [[playerIndex, 1, updatedPlayer]] })
+    console.log(updatedPlayers)
+    setPlayers(updatedPlayers)
   }
 
   if (!players) {
@@ -53,7 +67,7 @@ function Session({ sessionId }) {
         }`}
       >
         {players.map(player => (
-          <Player key={player.name} {...player} />
+          <Player key={player.name} updateLife={handleUpdateLife} {...player} />
         ))}
       </div>
     </div>
