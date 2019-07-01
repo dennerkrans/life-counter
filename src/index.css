@@ -109,11 +109,14 @@ input {
   font-size: 1rem;
   margin: 1em auto;
   display: block;
-  box-sizing: border-box;
 }
 
 .player-name.hidden {
   display: none;
+}
+
+input.player-name {
+  height: 1rem;
 }
 
 .player-life {
