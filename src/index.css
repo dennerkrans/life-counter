@@ -1,7 +1,13 @@
+:root {
+  --background-color: #ffffff;
+  --accent-color: #000000;
+}
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
 }
 
 body,
@@ -9,18 +15,37 @@ button,
 input,
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  color: var(--accent-color);
 }
 
 button,
 input {
-  border: 1px solid black;
-  background: #ffffff;
+  border: 1px solid var(--accent-color);
+  background: var(--background-color);
 }
 
 #root {
   padding: 0 10px;
   margin: 0 auto;
   max-width: 420px;
+}
+
+/* ThemeSwitch */
+.theme-switch {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 20;
+  height: 50px;
+  width: 50px;
+  background-image: url('./assets/light.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.theme-switch.dark {
+  background-image: url('./assets/dark.svg');
 }
 
 /* Home */
@@ -38,6 +63,7 @@ input {
   right: 0;
   bottom: 0;
   left: 0;
+  background-color: var(--background-color);
 }
 
 .horizontal-prompt {
@@ -47,7 +73,7 @@ input {
   bottom: 0;
   left: 0;
   z-index: 10;
-  background-color: #ffffff;
+  background-color: var(--background-color);
 }
 
 .horizontal-prompt--text {
@@ -100,7 +126,7 @@ input {
 .player-content {
   height: 100%;
   box-sizing: border-box;
-  border: 1px dashed #000000;
+  border: 1px dashed var(--accent-color);
 }
 
 .player-name {
@@ -197,6 +223,6 @@ input.player-name {
 
 .range-button--current,
 .range-input--current {
-  color: #ffffff;
-  background: #222222;
+  color: var(--background-color);
+  background: var(--accent-color);
 }
