@@ -40,6 +40,27 @@ input {
   left: 0;
 }
 
+.horizontal-prompt {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  background-color: #ffffff;
+}
+
+.horizontal-prompt--text {
+  text-align: center;
+  margin: 66% 1rem;
+}
+
+@media screen and (min-width: 568px) {
+  .horizontal-prompt {
+    display: none;
+  }
+}
+
 /* Player */
 .players {
   display: flex;
@@ -47,13 +68,13 @@ input {
   height: 100%;
 }
 
-.players-two {
+.players-two,
+.players-vertical {
   flex-direction: column;
 }
 
 .player {
   flex-basis: 100%;
-  background: red;
   position: relative;
 }
 
@@ -62,11 +83,12 @@ input {
   flex-basis: 50%;
 }
 
-.players-two .player:nth-child(odd) {
+.players-two .player:nth-child(odd),
+.players-vertical .player:nth-child(odd) {
   transform: rotate(180deg);
 }
 
-/* Below this ain't working */
+.players-two .player .player-content,
 .players-vertical .player .player-content {
   position: absolute;
   top: 0;
@@ -75,12 +97,62 @@ input {
   left: 0;
 }
 
-.players-vertical .player:nth-child(odd) .player-content {
-  transform: rotate(90deg);
+.player-content {
+  height: 100%;
+  box-sizing: border-box;
+  border: 1px dashed #000000;
 }
 
-.players-vertical .player:nth-child(even) .player-content {
-  transform: rotate(-90deg);
+.player-name {
+  text-align: center;
+  height: 10%;
+}
+
+.player-life {
+  height: 90%;
+  position: relative;
+}
+
+.player-life--display {
+  font-size: 3rem;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+.player-life--action {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+}
+
+.player-life--action-add {
+  right: 0;
+}
+
+.player-life--action-subtract {
+  left: 0;
+}
+
+.player-life--action-add::before,
+.player-life--action-subtract::before {
+  position: absolute;
+  top: 35%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+}
+
+.player-life--action-add::before {
+  content: '+';
+  left: 60%;
+}
+
+.player-life--action-subtract::before {
+  content: '-';
+  left: 40%;
 }
 
 /* Range */

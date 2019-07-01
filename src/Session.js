@@ -42,6 +42,11 @@ function Session({ sessionId }) {
 
   return (
     <div className="session">
+      {players.length > 2 && (
+        <div className="horizontal-prompt">
+          <h2 className="horizontal-prompt--text">Rotate device into horizontal mode</h2>
+        </div>
+      )}
       <div
         className={`players${players.length === 2 ? ' players-two' : ''}${
           players.length > 2 ? ' players-vertical' : ''

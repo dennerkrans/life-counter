@@ -5,7 +5,11 @@ function Player({ name, life }) {
     <div className="player">
       <div className="player-content">
         <p className="player-name">{name}</p>
-        <p className="player-life">{life}</p>
+        <div className="player-life">
+          <p className="player-life--display">{life}</p>
+          <div className="player-life--action player-life--action-subtract" />
+          <div className="player-life--action player-life--action-add" />
+        </div>
       </div>
     </div>
   )
