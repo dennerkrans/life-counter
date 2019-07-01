@@ -13,15 +13,6 @@ function ThemeSwitch() {
     },
   }
 
-  function setTheme() {
-    const theme = themes[currentTheme]
-    Object.keys(theme).forEach(key => {
-      const cssKey = `--${key}`
-      const cssValue = theme[key]
-      document.body.style.setProperty(cssKey, cssValue)
-    })
-  }
-
   function toggleTheme() {
     if (currentTheme === 'light') {
       setCurrentTheme('dark')
@@ -31,8 +22,13 @@ function ThemeSwitch() {
   }
 
   useEffect(() => {
-    setTheme()
-  }, [currentTheme])
+    const theme = themes[currentTheme]
+    Object.keys(theme).forEach(key => {
+      const cssKey = `--${key}`
+      const cssValue = theme[key]
+      document.body.style.setProperty(cssKey, cssValue)
+    })
+  }, [currentTheme, themes])
 
   return <div className={`theme-switch${currentTheme === 'dark' ? ' dark' : ''}`} onClick={toggleTheme} />
 }
