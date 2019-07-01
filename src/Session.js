@@ -42,11 +42,17 @@ function Session({ sessionId }) {
     initState(initialState, initialState.players)
   }
 
+  useEffect(() => {
+    if (initialState && players) {
+      const updatedInitialState = update(initialState, { players: { $set: players } })
+      localStorage.setItem(sessionId, JSON.stringify(updatedInitialState))
+    }
+  }, [players])
+
   function handleUpdateLife(id, life) {
     const playerIndex = players.findIndex(p => p.id === id)
     const updatedPlayer = update(players[playerIndex], { life: { $set: life } })
     const updatedPlayers = update(players, { $splice: [[playerIndex, 1, updatedPlayer]] })
-    console.log(updatedPlayers)
     setPlayers(updatedPlayers)
   }
 
