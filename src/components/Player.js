@@ -1,7 +1,9 @@
-import React from 'react'
-import ContentEditable from 'react-contenteditable'
-
+import React, { useState, useRef } from 'react'
 function Player({ id, name, life, updateLife, updateName }) {
+  const [edit, setEdit] = useState(false)
+  const [currentName, setCurrentName] = useState(name)
+  const nameInput = useRef()
+
   function addLife() {
     updateLife(id, life + 1)
   }
@@ -10,8 +12,25 @@ function Player({ id, name, life, updateLife, updateName }) {
     updateLife(id, life - 1)
   }
 
-  function triggerUpdateName(e) {
-    updateName(id, e.target.innerHTML)
+  function toggleEdit() {
+    if (!edit) {
+      setEdit(true)
+      focusOnInput()
+      return
+    }
+
+    setEdit(false)
+    if (currentName !== name) {
+      updateName(id, currentName)
+    }
+  }
+
+  function focusOnInput() {
+    setTimeout(() => nameInput.current.focus(), 100)
+  }
+
+  function updateCurrentName(e) {
+    setCurrentName(e.target.value)
   }
 
   function onEnterBlur(e) {
@@ -25,13 +44,18 @@ function Player({ id, name, life, updateLife, updateName }) {
   return (
     <div className="player">
       <div className="player-content">
-        <ContentEditable
-          className="player-name"
-          html={name}
-          tagName="p"
-          onBlur={triggerUpdateName}
+        <input
+          type="text"
+          className={`player-name${!edit ? ' hidden' : ''}`}
+          ref={nameInput}
+          value={currentName}
+          onBlur={toggleEdit}
+          onChange={updateCurrentName}
           onKeyDown={onEnterBlur}
         />
+        <p className={`player-name${edit ? ' hidden' : ''}`} onClick={toggleEdit}>
+          {currentName}
+        </p>
         <div className="player-life">
           <p className="player-life--display">{life}</p>
           <div className="player-life--action player-life--action-subtract" onClick={subtractLife} />

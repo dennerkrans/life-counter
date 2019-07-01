@@ -67,8 +67,6 @@ function Session({ sessionId }) {
 
   function updatePlayers(updatedPlayer, index) {
     const updatedPlayers = update(players, { $splice: [[index, 1, updatedPlayer]] })
-    console.log(players)
-    console.log(updatedPlayers)
     setPlayers(updatedPlayers)
   }
 

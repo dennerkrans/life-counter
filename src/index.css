@@ -106,6 +106,14 @@ input {
 .player-name {
   text-align: center;
   height: 10%;
+  font-size: 1rem;
+  margin: 1em auto;
+  display: block;
+  box-sizing: border-box;
+}
+
+.player-name.hidden {
+  display: none;
 }
 
 .player-life {
