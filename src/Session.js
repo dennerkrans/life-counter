@@ -12,7 +12,7 @@ function Session({ sessionId }) {
   const [players, setPlayers] = useState()
 
   useEffect(() => {
-    let session = JSON.parse(localStorage.getItem(sessionId))
+    let session = JSON.parse(sessionStorage.getItem(sessionId))
     if (!session) {
       const playerCount = getParamAsNumber('playerCount')
       const startingLife = getParamAsNumber('startingLife')
@@ -28,7 +28,7 @@ function Session({ sessionId }) {
         },
         players,
       }
-      localStorage.setItem(sessionId, JSON.stringify(session))
+      sessionStorage.setItem(sessionId, JSON.stringify(session))
     }
     initState(session, session.players)
   }, [sessionId])
@@ -42,10 +42,14 @@ function Session({ sessionId }) {
     initState(initialState, initialState.players)
   }
 
+  function updateSessionStorage() {
+    const updatedInitialState = update(initialState, { players: { $set: players } })
+    sessionStorage.setItem(sessionId, JSON.stringify(updatedInitialState))
+  }
+
   useEffect(() => {
     if (initialState && players) {
-      const updatedInitialState = update(initialState, { players: { $set: players } })
-      localStorage.setItem(sessionId, JSON.stringify(updatedInitialState))
+      updateSessionStorage()
     }
   }, [players])
 
