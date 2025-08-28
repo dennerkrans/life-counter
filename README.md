@@ -2,39 +2,6 @@
 
 > A modern web-based life counter for games such as, but not limited to, _Magic the Gathering_.
 
-## Recent Modernization Updates (v0.2.0)
-
-This project has been fully modernized with the following improvements:
-
-### 🚀 Technology Updates
-
-- **React 18**: Upgraded from React 16.8.6 to React 18.2.0 with new createRoot API
-- **React Router v6**: Migrated from deprecated @reach/router to react-router-dom v6
-- **React Scripts 5**: Updated build tooling to latest version
-- **Dependencies**: All dependencies updated to latest stable versions
-
-### 🔧 Code Modernization
-
-- **Modern React Patterns**: All components use modern hooks and functional components
-- **Performance Optimizations**: Added useCallback and useMemo for better performance
-- **Accessibility**: Added proper ARIA labels, keyboard navigation, and semantic HTML
-- **Code Quality**: Removed unused variables and imports, fixed ESLint warnings
-- **Type Safety**: Enhanced PropTypes validation
-
-### 🎨 User Experience Improvements
-
-- **Keyboard Navigation**: All interactive elements support keyboard navigation
-- **Accessibility**: Screen reader friendly with proper ARIA attributes
-- **Theme Switching**: Enhanced theme toggle with better visual feedback
-- **Responsive Design**: Maintained mobile-first responsive design
-
-### 🛠 Technical Improvements
-
-- **Session Management**: Improved state management with modern React patterns
-- **URL Parameters**: Better handling of URL search parameters with useSearchParams
-- **Component Structure**: Cleaner component architecture with better separation of concerns
-- **Error Handling**: More robust error handling and loading states
-
 ## Features
 
 - ✅ Support for 1-6 players
@@ -44,15 +11,80 @@ This project has been fully modernized with the following improvements:
 - ✅ Session persistence using browser storage
 - ✅ Responsive design for various screen sizes
 - ✅ Keyboard navigation support
-- ✅ Accessibility features
+- ✅ Full accessibility features
+
+## Technology Stack
+
+This project is built with modern web technologies:
+
+- **React 18** - Modern React with hooks and functional components
+- **React Router v6** - Client-side routing for single-page application
+- **Create React App** - Build tooling and development server
+- **CSS Custom Properties** - Dynamic theming system
+- **Progressive Web App** - Service worker for offline functionality
+
+## Architecture
+
+### Component Structure
+
+- **App** - Main application router and theme provider
+- **Home** - Player count and starting life selection
+- **Session** - Game session with life counters for each player
+- **Player** - Individual player life counter with editable name
+- **Range** - Reusable selection component for options
+- **ThemeSwitch** - Dark/light mode toggle
+
+### State Management
+
+- Modern React hooks (useState, useEffect, useCallback, useMemo)
+- URL parameters for session configuration
+- Browser sessionStorage for game persistence
+- Functional state updates for performance optimization
+
+### Accessibility
+
+- Full keyboard navigation support
+- ARIA labels and semantic HTML
+- Screen reader compatibility
+- Focus management for interactive elements
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (version 22.14.0 or higher)
+- npm
+
+**Note**: This project includes a `.nvmrc` file. If you use nvm, you can run `nvm use` to automatically switch to the correct Node.js version.
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/dennerkrans/life-counter.git
+cd life-counter
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm start
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in the development mode.<br>
+Runs the app in development mode.<br>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
@@ -60,7 +92,7 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.<br>
+Launches the test runner in interactive watch mode.<br>
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
@@ -71,34 +103,54 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
 If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Deployment
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This project is configured for deployment on Vercel with the included `vercel.json` configuration file. The configuration handles:
+
+- Static asset optimization with long-term caching
+- Single-page application routing
+- Favicon and manifest file serving
+- Service worker caching strategies
+
+To deploy on Vercel:
+
+1. Install the Vercel CLI: `npm i -g vercel`
+2. Run `vercel` in the project directory
+3. Follow the prompts to deploy
 
 ## Browser Support
 
-This project supports all modern browsers including:
+This application supports all modern browsers:
 
 - Chrome (latest)
 - Firefox (latest)
 - Safari (latest)
 - Edge (latest)
 
+## How to Use
+
+1. **Select Players**: Choose the number of players (1-6) using the player count selector
+2. **Set Starting Life**: Select a preset life total (20, 30, 40, 60) or enter a custom amount
+3. **Start Game**: Click "Play" to begin a new game session
+4. **Track Life**: Use the + and - buttons to adjust each player's life total
+5. **Edit Names**: Click on player names to edit them
+6. **Theme Toggle**: Use the theme switch button to toggle between light and dark modes
+
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Make your changes
 4. Test thoroughly
-5. Submit a pull request
+5. Commit your changes (`git commit -m 'Add some amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ## License
 
