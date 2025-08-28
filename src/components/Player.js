@@ -1,69 +1,95 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from "react";
+
 function Player({ id, name, life, updateLife, updateName }) {
-  const [edit, setEdit] = useState(false)
-  const [currentName, setCurrentName] = useState(name)
-  const nameInput = useRef()
+  const [edit, setEdit] = useState(false);
+  const [currentName, setCurrentName] = useState(name);
+  const nameInput = useRef(null);
 
-  function addLife() {
-    updateLife(id, life + 1)
-  }
+  const addLife = useCallback(() => {
+    updateLife(id, life + 1);
+  }, [id, life, updateLife]);
 
-  function subtractLife() {
-    updateLife(id, life - 1)
-  }
+  const subtractLife = useCallback(() => {
+    updateLife(id, life - 1);
+  }, [id, life, updateLife]);
 
-  function toggleEdit() {
+  const toggleEdit = useCallback(() => {
     if (!edit) {
-      setEdit(true)
-      focusOnInput()
-      return
+      setEdit(true);
+      // Focus on input after state update
+      setTimeout(() => {
+        if (nameInput.current) {
+          nameInput.current.focus();
+        }
+      }, 100);
+      return;
     }
 
-    setEdit(false)
+    setEdit(false);
     if (currentName !== name) {
-      updateName(id, currentName)
+      updateName(id, currentName);
     }
-  }
+  }, [edit, currentName, name, id, updateName]);
 
-  function focusOnInput() {
-    setTimeout(() => nameInput.current.focus(), 100)
-  }
+  const updateCurrentName = useCallback((e) => {
+    setCurrentName(e.target.value);
+  }, []);
 
-  function updateCurrentName(e) {
-    setCurrentName(e.target.value)
-  }
-
-  function onEnterBlur(e) {
-    if (e.key !== 'Enter') {
-      return
+  const onEnterBlur = useCallback((e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.target.blur();
     }
-    e.preventDefault()
-    e.target.blur()
-  }
+  }, []);
 
   return (
     <div className="player">
       <div className="player-content">
         <input
           type="text"
-          className={`player-name${!edit ? ' hidden' : ''}`}
+          className={`player-name${!edit ? " hidden" : ""}`}
           ref={nameInput}
           value={currentName}
           onBlur={toggleEdit}
           onChange={updateCurrentName}
           onKeyDown={onEnterBlur}
         />
-        <p className={`player-name${edit ? ' hidden' : ''}`} onClick={toggleEdit}>
+        <p
+          className={`player-name${edit ? " hidden" : ""}`}
+          onClick={toggleEdit}
+        >
           {currentName}
         </p>
         <div className="player-life">
           <p className="player-life--display">{life}</p>
-          <div className="player-life--action player-life--action-subtract" onClick={subtractLife} />
-          <div className="player-life--action player-life--action-add" onClick={addLife} />
+          <div
+            className="player-life--action player-life--action-subtract"
+            onClick={subtractLife}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                subtractLife();
+              }
+            }}
+          />
+          <div
+            className="player-life--action player-life--action-add"
+            onClick={addLife}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                addLife();
+              }
+            }}
+          />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Player
+export default Player;
